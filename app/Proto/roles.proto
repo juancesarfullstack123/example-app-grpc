@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package services.roles;
+
+service RolesServices {
+  rpc FindByRolesCode (RequestCode) returns (ResRoles) {}
+//   rpc CreateUser (RequestUsers) returns (respost) {}
+}
+
+message RequestCode{
+    string role_code = 1;
+}
+message ResRoles {
+    int32 id = 1;
+    string roles_code = 2;
+    string roles_desc = 3;
+}
+message ResData {
+    repeated ResRoles data = 1;
+    int32 total = 2;
+}

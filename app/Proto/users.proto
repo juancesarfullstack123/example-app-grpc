@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package services.users;
+
+service UsersService {
+  rpc FindOne (UserById) returns (RESUSERS) {}
+  rpc Find (QueryUsers) returns (resdata) {}
+  rpc CreateUser (RequestUsers) returns (InsertResult) {}
+  rpc Login (LoginRequest) returns (RESUSERS) {}
+}
+message LoginRequest {
+    string username = 1;
+    string status = 2;
+}
+message UserById {
+  int32 id = 1;
+}
+message QueryUsers{
+    int32 total = 1;
+    int32 from  = 2;
+}
+message RolesUsers{
+    int32 id = 1;
+    string roles_code = 2;
+    string roles_desc = 3;
+}
+message SuperAdminUsers{
+    int32 id = 1;
+    string full_name = 2;
+    string avatar = 3;
+    string gender = 4;
+    string address = 5;
+    string phone_number = 6;
+}
+message TeacherStudentUsers{
+    int32 id = 1;
+    string full_name = 2;
+    string avatar = 3;
+    string gender = 4;
+    string address = 5;
+    string phone_number = 6;
+    int32 school_id = 7;
+}
+message RequestUsers {
+    string username =  1;
+    string password = 2;
+    string roles_id = 3;
+}
+message RESLOGIN {
+  int32 id = 1;
+  string name = 2;
+}
+
+message RESUSERS {
+    int32 id = 1;
+    string username = 2;
+    string password = 3;
+    string is_login = 4;
+    string roles_id = 5;
+    string status = 6;
+    string last_login = 7;
+    string employee_id = 8;
+    string students_id = 9;
+    string created_at = 10;
+    string updated_at = 11;
+    RolesUsers roles = 12;
+    SuperAdminUsers profile = 13;
+    TeacherStudentUsers profile_teacher = 14;
+    TeacherStudentUsers profile_student = 15;
+}
+message resdata {
+    repeated RESUSERS data = 1;
+    int32 total = 2;
+}
+message respost {
+    string message = 1;
+}
+
+message GeneratedMap {
+    string id = 1;
+    string insertedAt = 2; // Using string to store the timestamp in ISO format
+    string updatedAt = 3;  // Using string to store the timestamp in ISO format
+}
+
+message RawData {
+    string users_id = 1;
+    string inserted_at = 2; // Using string to store the timestamp in ISO format
+    string updated_at = 3;  // Using string to store the timestamp in ISO format
+}
+message Identifier {
+    string id = 1;
+  }
+  
+message InsertResult {
+    repeated Identifier identifiers = 1;
+    repeated GeneratedMap generatedMaps = 2;
+    repeated RawData raw = 3;
+}
